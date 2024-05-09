@@ -105,6 +105,9 @@ if (alternateCode == 0) {
       - 4. Random gates, controlled/synced using internal noise. using the internal noise, and one knob as probability, or signal in as CV probability, then output a gate when hold is triggered if the threshold is higher than the probability value.
       - 5. Sample & Hold of a CV signal segment... So using a ring buffer, save as many values as possible, and when hold is triggered playback the ring buffer. One pot for length/size of buffer, and one for speed of sample and playback. S/T switch to choose between looped or back-and-forth? or something similar. 
       - 6. Sample & Hold of an audio signal... Same as above but maybe use faster analogRead for audio signals (8bits only 255), for a chopper like effect.
+      - 7. HiHat, would be easy to implement with the internal noise, one knob for noise "speed"/filter and one for decay. One of the parameters (or other) Could also be cv controlled.
+      - 8. Suggestion for any function: Connect the nc pin of the signal input to +5v. That way the input knob becomes another value pot even when nothing is connected to the CV-input. A simple mod.
+      
     */
 
     //2. Random gates
