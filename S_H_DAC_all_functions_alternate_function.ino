@@ -110,7 +110,7 @@ if (alternateCode == 0) {
       
     */
 
-    //2. Random gates
+    //3 and 4 above. Random gates, they were kindof the same...
     lowCut = analogRead(A1);
     highCut = analogRead(A2);
     intOrExt=digitalRead(intOrExtPin);
