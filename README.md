@@ -5,7 +5,12 @@ It is a DIY module, and uses an Arduino Nano as the brains of the module using P
 yt
 yt
 yt
-You can buy the PCB and Panel and or components here: tindie
+
+here is the build video:
+
+You can buy the PCB and Panel and or components here: 
+https://www.tindie.com/products/Sourcery/sth-sith-sample-or-track-and-hold/
+
 Or you can download the files from this page and order the parts yourself, or even just follow the schematics and use protoboard or similar to build it.
 What makes it a bit special is the Max and Min pots which makes it so you can tweak the range of the cv output. Also with some fun effects by inverting the output for some fun effects. You also have an internal noise source which you can output by using the internal noise source and going into Track mode. This will output the noise as long as hold is not triggered.
 
