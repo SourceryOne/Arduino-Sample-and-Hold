@@ -2,7 +2,7 @@
 <img align="right" src="SITH-frontpanel.png">
 S|TH is a simple arduino based Sample (or Track) and Hold with a bunch of nifty features like interna noise and adjustable output cv-range. Built with Port manipulation to support 10 bit output for 1023 step resolution.
 
-It is a DIY module, and uses an Arduino Nano as the brains of the module using Port manipulation with an r2r ladder for the CV output. I did a whole bunch of videos on the different aspects of this video which you can see here:
+It is a DIY module, and uses an Arduino Nano as the brains of the module using Port manipulation with an r2r ladder for the CV output. I did a whole bunch of videos on the different aspects of this module which you can see here:
 
 
 Explaining PORT MANIPULATION: https://youtu.be/IoJasVtr0OA
