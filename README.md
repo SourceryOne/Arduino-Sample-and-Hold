@@ -6,8 +6,11 @@ It is a DIY module, and uses an Arduino Nano as the brains of the module using P
 
 Explaining PORT MANIPULATION: https://youtu.be/IoJasVtr0OA
 Part1: https://youtu.be/7Mhq-GJlMeM
+
 Part2: https://youtu.be/WDeVrf_H2IQ
+
 Part3: https://youtu.be/BoewbbyEvRc
+
 
 here is the build video: https://youtu.be/z-7DU65izWw
 
