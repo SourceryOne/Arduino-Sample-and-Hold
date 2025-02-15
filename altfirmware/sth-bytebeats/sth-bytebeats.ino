@@ -9,6 +9,7 @@ const byte sine256[] PROGMEM = { // sine wavetable
 };
 //played like so
 
+bool debug = false;
 
 // for the sine waves
 unsigned int Acc[3];
@@ -21,7 +22,8 @@ const int trigIn = A3;  // Pin connected to the button and the trig in jack
 const int sampleOrTrackPin = A0; //switch between 5v and GND to decide sample or track.
 const int trigLed = A5;
 const int intOrExtPin = A4;
-const int trigIn = A3;  // Pin connected to the button and the trig in jack
+const int signalInput = A6; // Input signal to sample or track.
+int intOrExt = 1;
 
 short i = 0;
 int sample;
@@ -36,9 +38,9 @@ int prog = 1;
 int bank = 1;
 int banktotal = 2;
 int pb1 = 1;
-int pb1total = 24;
+int pb1total = 25;
 int pb2 = 1;
-int pb2total = 29;
+int pb2total = 28;
 
 // these ranges are provisional and in schollz equations need to be reset
 volatile int aMax = 99, aMin = 0, bMax = 99, bMin = 0, cMax = 99, cMin = 0;
@@ -48,12 +50,21 @@ volatile int offA, offB, offC;
 volatile int result;
 int timeToReadPots = 0;
 
-bool debug = false;
+
 // pot inputs
 void knobs() {
-  a = map(analogRead(A6), 0, 1023, aMin, aMax) + offA;
-  b = map(analogRead(A1), 0, 1023, bMin, bMax) + offB;
+  b = map(analogRead(A6), 0, 1023, aMin, aMax) + offA;
+  a = map(analogRead(A1), 0, 1023, bMin, bMax) + offB;
   c = map(analogRead(A2), 0, 1023, cMin, cMax) + offC;
+  intOrExt = digitalRead(intOrExtPin); // A4
+  if (debug) {
+    Serial.print("a:");
+    Serial.println(a);
+    Serial.print("b:");
+    Serial.println(b);
+    Serial.print("c:");
+    Serial.println(c);
+  }
 }
 inline void setLimits(byte a1, byte a2, byte b1, byte b2, byte c1, byte c2) {
   aMax = a2; aMin = a1;
@@ -114,7 +125,7 @@ void buttons() {
   while (digitalRead(trigIn) == LOW) {
     //change bank
     unsigned long pressDuration = getButtonPressDuration();
-    if (pressDuration > 200) {
+    if (pressDuration > 100) {
       onButtonReleased();
       digitalWrite (trigLed, HIGH);
       delay(50);
@@ -125,21 +136,22 @@ void buttons() {
   }
 }
 
-
-
-
-
-
 #include "bytebeats.h"
 
 
 void setup() {
   // put your setup code here, to run once:
-  DDRD = 0b11111111; //DDRD = DDRD | B11111100;
+  DDRD = 0b11111111; // DDRD = DDRD | B11111100; // for serial we need a pin :) 0b11111111
   DDRB = 0b11111111;
   offA = 0; offB = 0; offC = 0;
   pinMode(trigLed, OUTPUT);
-
+  pinMode(sampleOrTrackPin, INPUT_PULLUP);
+  pinMode(intOrExtPin, INPUT_PULLUP);
+  pinMode(trigIn, INPUT_PULLUP);
+  if (debug) {
+    Serial.begin(57600);
+    Serial.println(F("Started"));
+  }
 
 }
 
@@ -148,23 +160,32 @@ void loop() {
   if (timeToReadPots >= 50) {
     knobs();
     buttons();
-
     //adc();
-
-    //lowCut = analogRead(A1);
-    //highCut = analogRead(A2);
-    //intOrExt=digitalRead(intOrExtPin);
-
     timeToReadPots = 0;
-
   } else {
-
     timeToReadPots++;
-
   }
-  t++;
-  if (t > 65536) t = -65536;
+  if (digitalRead(trigIn) == LOW) {
+    //We have a trig! Lets lock the sample value and send it.
+    //light up the trigLed! We have a trig!
+    digitalWrite(trigLed, HIGH);
+  } else {
+    digitalWrite(trigLed, LOW);
+  }
+  
+  t++; // this is our main var for generating beats
 
+ if (t > 65536) t = -65536;
+
+  // the top switch is set to 'internal' source
+  // we use it to change the frequency upwards
+  if (intOrExt == LOW) {
+    enc_offset = 3;
+  } else {
+    enc_offset = 1;
+  }
+
+  // switch bank and choose voice
   switch (bank) {
     case 1:
       rythmical(pb1);
@@ -188,8 +209,12 @@ void loop() {
     //pgm_read_byte(&sine256[i++]);
   */
 
-  PORTD = lowByte(result);
-  PORTB = highByte(result);
+
+  // write the results out to dac
+  PORTD = lowByte(result + enc_offset);
+  PORTB = highByte(result + enc_offset);
+
+  // we're using the sampleOrTrack switch for a bank switch
   if (digitalRead(sampleOrTrackPin) == LOW) {
     bank = 2;
   } else {
