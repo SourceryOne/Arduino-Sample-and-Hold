@@ -141,7 +141,7 @@ void buttons() {
 
 void setup() {
   // put your setup code here, to run once:
-  DDRD = 0b11111111; // DDRD = DDRD | B11111100; // for serial we need a pin :) 0b11111111
+  DDRD = // 0b11111111;//DDRD = DDRD | B11111100; //  // for serial we need a pin :) 0b11111111
   DDRB = 0b11111111;
   offA = 0; offB = 0; offC = 0;
   pinMode(trigLed, OUTPUT);
@@ -165,9 +165,10 @@ void loop() {
   } else {
     timeToReadPots++;
   }
-  if (digitalRead(trigIn) == LOW) {
+  if (digitalRead(trigIn) == HIGH) {
     //We have a trig! Lets lock the sample value and send it.
     //light up the trigLed! We have a trig!
+    //if(debug) Serial.println("trig");
     digitalWrite(trigLed, HIGH);
   } else {
     digitalWrite(trigLed, LOW);
@@ -180,9 +181,9 @@ void loop() {
   // the top switch is set to 'internal' source
   // we use it to change the frequency upwards
   if (intOrExt == LOW) {
-    enc_offset = 3;
+    enc_offset = 20;
   } else {
-    enc_offset = 1;
+    enc_offset = 50;
   }
 
   // switch bank and choose voice
@@ -211,8 +212,8 @@ void loop() {
 
 
   // write the results out to dac
-  PORTD = lowByte(result + enc_offset);
-  PORTB = highByte(result + enc_offset);
+  PORTD = lowByte(result);
+  PORTB = highByte(result);
 
   // we're using the sampleOrTrack switch for a bank switch
   if (digitalRead(sampleOrTrackPin) == LOW) {
@@ -222,6 +223,6 @@ void loop() {
   }
 
 
-  delayMicroseconds(50);
+  delayMicroseconds(enc_offset);
 
 }
