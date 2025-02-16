@@ -38,7 +38,7 @@ int prog = 1;
 int bank = 1;
 int banktotal = 2;
 int pb1 = 1;
-int pb1total = 25;
+int pb1total = 44;
 int pb2 = 1;
 int pb2total = 28;
 
@@ -53,8 +53,8 @@ int timeToReadPots = 0;
 
 // pot inputs
 void knobs() {
-  b = map(analogRead(A6), 0, 1023, aMin, aMax) + offA;
-  a = map(analogRead(A1), 0, 1023, bMin, bMax) + offB;
+  a = map(analogRead(A6), 0, 1023, aMin, aMax) + offA;
+  b = map(analogRead(A1), 0, 1023, bMin, bMax) + offB;
   c = map(analogRead(A2), 0, 1023, cMin, cMax) + offC;
   intOrExt = digitalRead(intOrExtPin); // A4
   if (debug) {
@@ -181,9 +181,9 @@ void loop() {
   // the top switch is set to 'internal' source
   // we use it to change the frequency upwards
   if (intOrExt == LOW) {
-    enc_offset = 20;
+    enc_offset = 32;
   } else {
-    enc_offset = 50;
+    enc_offset = 96;
   }
 
   // switch bank and choose voice
