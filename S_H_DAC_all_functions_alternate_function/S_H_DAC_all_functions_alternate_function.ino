@@ -23,7 +23,7 @@ bool alternateCode=0;
 
 void setup() {
   // Set the appropriate pins as output for port manipulation
-  DDRD = 0b11111111; //DDRD = DDRD | B11111100; 
+  DDRD = DDRD = DDRD | B11111100; //0b11111111; //
   DDRB = 0b11111111;
   pinMode(sampleOrTrackPin, INPUT_PULLUP);
   pinMode(intOrExtPin, INPUT_PULLUP);
@@ -57,7 +57,7 @@ if (alternateCode == 0) {
     //Reading from external source
     //Below reads the signal and maps it to low and highcut in one go.
     sample=map(analogRead(signalInput), 0,1023,lowCut,highCut); 
-    Serial.println(sample);
+    Serial.println(F("Started"));
   } else {
     //Using internal noise source
     sample=random(lowCut,highCut);
