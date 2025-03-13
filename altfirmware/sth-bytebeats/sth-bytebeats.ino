@@ -43,7 +43,7 @@ int pb2 = 1;
 int pb2total = 28;
 
 // these ranges are provisional and in schollz equations need to be reset
-volatile int aMax = 99, aMin = 0, bMax = 99, bMin = 0, cMax = 99, cMin = 0;
+volatile int aMax = 99, aMin = 0, bMax = 99, bMin = 0, cMax = 256, cMin = 4;
 long t = 0;
 volatile int a, b, c;
 volatile int offA, offB, offC;
@@ -181,9 +181,7 @@ void loop() {
   // the top switch is set to 'internal' source
   // we use it to change the frequency upwards
   if (intOrExt == LOW) {
-    enc_offset = 32;
-  } else {
-    enc_offset = 96;
+    enc_offset = map(analogRead(A2), 0, 1023, 4, 512);
   }
 
   // switch bank and choose voice
