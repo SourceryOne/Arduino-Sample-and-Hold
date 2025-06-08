@@ -4,6 +4,8 @@ S|TH is a simple arduino based Sample (or Track) and Hold with a bunch of nifty 
 
 It is a DIY module, and uses an Arduino Nano as the brains of the module using Port manipulation with an r2r ladder for the CV output. I did a whole bunch of videos on the different aspects of this module which you can see here:
 
+Here is the latest video about this module, explaining all the alternate functions added in the latest firmware. eg. Random gates, Sample & Slide, LFO and Hold, AD-envelope, Percussive Noise Voice and LoFi VCA.
+https://youtu.be/iRezLIJ5KPU
 
 Explaining PORT MANIPULATION: https://youtu.be/IoJasVtr0OA
 
