@@ -23,7 +23,14 @@ void alternateFunction2() {
     lastTrigState = 0; // Reset the trigger state
   }
 
-  slideFactor = float(highCut) / 1023.0; // Map potentiometer value to 0.0 - 1.0
+  //slideFactor = float(highCut) / 1023.0; // Map potentiometer value to 0.0 - 1.0
+  //Use below instead to get one knob for upwards slide and one for downward slide... :)
+  if (lastValue < targetValue) {
+    slideFactor = float(lowCut) / 1023.0; // Map potentiometer value to 0.0 - 1.0
+  } else {
+    slideFactor = float(highCut) / 1023.0; // Map potentiometer value to 0.0 - 1.0
+  }
+  
   slideToTarget(currentTime); // Smoothly transition to the next value
 
   // Output the current value as a PWM signal on the analog output pin
