@@ -16,8 +16,14 @@ unsigned long getButtonPressDuration() {
       startTime = millis();
       buttonPressed = true;
     }
-
-    if (millis() - startTime > (holdTime *6)) {
+    //COPY THIS WITH EXTRA FUNCTION
+    if (millis() - startTime > (holdTime *7)) {
+      // Button held for more than 11 seconds
+      if (lowCut == 0 && highCut== 0 ) {
+        digitalWrite(trigLed, LOW);
+        alternateCode=6;
+      }
+    } else if (millis() - startTime > (holdTime *6)) {
       // Button held for more than 11 seconds
       if (lowCut == 0 && highCut== 0 ) {
         digitalWrite(trigLed, HIGH);

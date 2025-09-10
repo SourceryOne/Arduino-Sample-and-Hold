@@ -58,6 +58,16 @@ int filterCounter=0;
 byte hihatfilter;
 byte newTrig=1; //to make sure you can make a new trig as soon as you let go of the HOLD.
 
+//Variables for CVrecorder
+int BUFFER_SIZE=255;
+bool ringBuffer[255]; //was int, was 255
+bool wasTrigHigh = false;
+bool latchedHigh = false;
+int bufferIndex = 0;
+int startIndex = 0; 
+int bufferLength = 0;
+
+
 void setup() {
   //Serial.begin(115200);
   // Set the appropriate pins as output for port manipulation
@@ -69,7 +79,8 @@ void setup() {
 
   alternateCode = EEPROM.read(eepromAddress);
   alternateCodeFromEEPROM=alternateCode; //to make sure we dont write to eeprom without needing to.
-  if (alternateCode < 0 || alternateCode > 5) {
+  //CHANGE THIS FOR MORE ALT FUNCTIONS.
+  if (alternateCode < 0 || alternateCode > 6) {
     alternateCode = 0; // Default to Main Function if the value is invalid
   }
   //start random/noise

@@ -42,6 +42,7 @@ void loop() {
       break;
 //========================================================================================
 //ALTERNATE FUNCTION 1 - happens if both lowCut and highCut is set to 0 and hold is pushed for 5 seconds.
+//COPY THIS WITH EXTRA FUNCTION
     case 1: 
       alternateFunction1();
       break;
@@ -56,6 +57,9 @@ void loop() {
       break;
     case 5: 
       alternateFunction5();
+      break;
+    case 6: 
+      alternateFunction6();
       break;
   }
   
