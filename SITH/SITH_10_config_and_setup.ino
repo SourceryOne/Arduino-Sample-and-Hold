@@ -60,7 +60,7 @@ byte newTrig=1; //to make sure you can make a new trig as soon as you let go of 
 
 //Variables for CVrecorder
 int BUFFER_SIZE=255;
-bool ringBuffer[255]; //was int, was 255
+int ringBuffer[255]; //MUST BE INT!
 bool wasTrigHigh = false;
 bool latchedHigh = false;
 int bufferIndex = 0;
@@ -86,3 +86,4 @@ void setup() {
   //start random/noise
   //randomSeed(random(1023));
 }  
+
